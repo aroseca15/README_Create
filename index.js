@@ -1,6 +1,7 @@
 const fs = require('fs');
 const util = require('util');
 const writeFileAsync = util.promisify(fs.writeFile);
+const inquirer = require('inquirer');
 
 inquirer.prompt([
     {
@@ -146,7 +147,7 @@ async function write() {
 
         await writeFileAsync('README.md', newReadMe);
         console.log("Your ReadMe is Completed!");
-    } catch (error) {
+    }catch(error) {
         console.log("Something Went Wrong!")
     }
 };
