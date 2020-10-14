@@ -1,6 +1,6 @@
 const fs = require('fs');
 const util = require('util');
-const writeFileAsync = util.promisify(fs.writeFile);
+// const writeFileAsync = util.promisify(fs.writeFile);
 const inquirer = require('inquirer');
 let markDown = '';
 
@@ -102,14 +102,15 @@ inquirer.prompt([
     },
 
 ]).then(function(res) {
-    markDown = 
+
+    if(res.screenGIFcon == false){
+        console.log("No")
+        markDown = 
 `# ${res.title} 
 
 ## Description:
 ${res.description}
 ### Deployment Link: ${res.deploy}
-
-### Screenshots or GIFS: ${res.screenGIF}
 
 # Table of :
 [Installation] (##Installation)
@@ -126,7 +127,7 @@ ${res.install}
 ${res.useage}
 
 ## License:
-![License]("https://img.shields.io/badge/License-${res.license}-green.svg")
+![License](https://img.shields.io/badge/License-${res.license}-green.svg/*  */)
 
 ## Tested With:
 ${res.test}
@@ -138,6 +139,46 @@ ${res.email}
 
 ## Contact for Questions:
 For answers to any further questions please contact me via: ${res.contact}`
+    } else{
+        markDown = 
+`# ${res.title} 
+
+## Description:
+${res.description}
+### Deployment Link: ${res.deploy}
+
+### Screenshots or GIFS: ${res.screenGIF}
+
+# Table of :
+* [Installation] (##Installation)
+* [Usage] (##Usage)
+* [Contributing] (##Contributing)
+* [Test] (##Test)
+* [Profiles] (##Professional Profiles & Email)
+* [Contact for Questions] (##Contact for Questions)
+    
+## Installation:
+${res.install}
+
+## Usage:
+${res.useage}
+
+## License:
+![License](https://img.shields.io/badge/License-${res.license}-green.svg)
+
+## Tested With:
+${res.test}
+
+## Professional Profiles and Email:
+${res.Github}
+${res.linkedin}
+${res.email}
+
+## Contact for Questions:
+For answers to any further questions please contact me via: ${res.contact}`
+    }
+    
+    
     // [License](https://opensource.org/licesnes/${re.license}) Do I need this?
     fs.writeFile('README.md', markDown, function(){
         console.log('Your README is Completed!')
