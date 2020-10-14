@@ -2,155 +2,161 @@ const fs = require('fs');
 const util = require('util');
 const writeFileAsync = util.promisify(fs.writeFile);
 const inquirer = require('inquirer');
+let markDown = '';
 
 inquirer.prompt([
     {
         type: 'input',
-        question: 'What is your Project title?',
-        title: 'title'
+        message: 'What is your Project title?',
+        name: 'title'
     },
 
     {
         type: 'input',
-        question: 'Please add deployment link:',
-        deploy: 'deploy'
+        message: 'Please add deployment link:',
+        name: 'deploy'
 
     },
 
     {
         type: 'input',
-        question: 'Please describe you app or project:',
-        descritption: 'description'
+        message: 'Please describe you app or project:',
+        name: 'description'
 
     },
 
     {
         type: 'confirm',
-        question: 'Would you like to add a screenshot or GIF?',
-        screenGIFcon: 'screenGIFcon'
+        message: 'Would you like to add a screenshot or GIF?',
+        name: 'screenGIFcon'
 
     },
     // How to link if I say yes to next screenshot input. If no, Next other question?
     {
         type: 'input',
-        question: 'Please paste your screenshot or GIF link:',
-        screenGIF: 'screenGIF'
+        message: 'Please paste your screenshot or GIF link:',
+        name: 'screenGIF'
 
     },
 
     {
         type: 'input',
-        question: 'Please enter installation instructions:',
-        install: 'install'
+        message: 'Please enter installation instructions:',
+        name: 'install'
 
     },
 
     {
         type: 'input',
-        question: 'How is the app used?',
-        useage: 'useage'
+        message: 'How is the app used?',
+        name: 'useage'
 
     },
 
     {
         type: 'input',
-        question: 'Who worked on this project with you?',
-        creators: 'creators'
+        message: 'Who worked on this project with you?',
+        name: 'creators'
 
     },
 
     {
         type: 'input',
-        question: 'What test program did you use?',
-        test: 'test'
+        message: 'What test program did you use?',
+        name: 'test'
     },
 
     {
         type: 'list',
-        question: 'Please select a license:',
+        message: 'Please select a license:',
         choices: ["Apache", "MIT", "GNU GPLv3", "ISC"],
-        license: ''
+        name: 'license'
     },
 
     {
         type: 'input',
-        question: 'Please enter your Github Username:',
-        Github: 'Github'
-
-    },
-
-    {
-        type: 'input',
-        question: 'Please paste you linkedin link:',
-        linkedin: 'linkedin'
+        message: 'Please enter your Github Username:',
+        name: 'Github'
 
     },
 
     {
         type: 'input',
-        question: 'Please enter your email address:',
-        email: 'email'
+        message: 'Please paste you linkedin link:',
+        name: 'linkedin'
 
     },
 
     {
         type: 'input',
-        question: 'Please complete the sentence and enter new information if needed; Best contacted via:',
-        contact: 'contact'
+        message: 'Please enter your email address:',
+        name: 'email'
 
     },
 
-]).then(function generateReadMe(res) {
-    return `#${res.title} 
+    {
+        type: 'input',
+        message: 'Please complete the sentence and enter new information if needed; Best contacted via:',
+        name: 'contact'
 
-    ##Description:
-    ${res.descritption}
+    },
 
-    ###Deployment Link: ${res.deploy}
+]).then(function(res) {
+    markDown = 
+`# ${res.title} 
+
+## Description:
+${res.description}
+### Deployment Link: ${res.deploy}
+
+### Screenshots or GIFS: ${res.screenGIF}
+
+# Table of :
+[Installation] (##Installation)
+[Usage] (##Usage)
+[Contributing] (##Contributing)
+[Test] (##Test)
+[Profiles] (##Professional Profiles & Email)
+[Contact for Questions] (##Contact for Questions)
     
-    
-    #Table of :
-    [Installation](##Installation)
-    [Usage](##Usage)
-    [Contributing](##Contributing)
-    [Test](##Test)
-    [Profiles](##Professional Profiles & Email)
-    [Contact for Questions](##Contact for Questions)
-    
-    ## Installation:
-    ${res.install}
+## Installation:
+${res.install}
 
-    ##Usage:
-    ${res.useage}
+## Usage:
+${res.useage}
 
-    ##License:
-    [![License](https://img.shields.io/badge/License-${res.license}-blue.svg "Badge")
+## License:
+![License]("https://img.shields.io/badge/License-${res.license}-green.svg")
 
-    ##Tested With:
-    ${res.test}
+## Tested With:
+${res.test}
 
-    ##Professional Profiles and Email:
-    ${res.Github}
-    ${res.linkedin}
-    ${res.email}
+## Professional Profiles and Email:
+${res.Github}
+${res.linkedin}
+${res.email}
 
-    ##Contact for Questions:
-    For answers to any further questions please contact me via: ${res.contact}
-    `
+## Contact for Questions:
+For answers to any further questions please contact me via: ${res.contact}`
     // [License](https://opensource.org/licesnes/${re.license}) Do I need this?
+    fs.writeFile('README.md', markDown, function(){
+        console.log('Your README is Completed!')
+    })
 });
 
-async function write() {
-    try {
-        const response = await inquirer.prompt();
-        const newReadMe = generateReadMe(response);
 
-        await writeFileAsync('README.md', newReadMe);
-        console.log("Your ReadMe is Completed!");
-    }catch(error) {
-        console.log("Something Went Wrong!")
-    }
-};
 
-write();
+// async function write() {
+//     try {
+//         const response = await inquirer.prompt();
+//         // const newReadMe = generateReadMe(response);
+
+//         await writeFileAsync('README.md', newReadMe);
+//         console.log("Your ReadMe is Completed!");
+//     }catch(error) {
+//         console.log("Something Went Wrong!", error)
+//     }
+// };
+
+// write();
 
