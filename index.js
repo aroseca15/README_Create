@@ -104,21 +104,23 @@ inquirer.prompt([
 ]).then(function(res) {
 
     if(res.screenGIFcon == false){
-        console.log("No")
+        // console.log("No")
         markDown = 
 `# ${res.title} 
 
 ## Description:
 ${res.description}
+
 ### Deployment Link: ${res.deploy}
 
-# Table of :
-[Installation] (##Installation)
-[Usage] (##Usage)
-[Contributing] (##Contributing)
-[Test] (##Test)
-[Profiles] (##Professional Profiles & Email)
-[Contact for Questions] (##Contact for Questions)
+
+# Table of Contents:
+* [Installation](#Installation)
+* [Usage](#Usage)
+* [Contributing](#Contributing)
+* [Test](#Test)
+* [Profiles](#Professional-Profiles-&-Email)
+* [Contact for Questions](#Contact-for-Questions)
     
 ## Installation:
 ${res.install}
@@ -127,7 +129,7 @@ ${res.install}
 ${res.useage}
 
 ## License:
-![License](https://img.shields.io/badge/License-${res.license}-green.svg/*  */)
+![License](https://img.shields.io/badge/License-${res.license}-green.svg)
 
 ## Tested With:
 ${res.test}
@@ -145,17 +147,19 @@ For answers to any further questions please contact me via: ${res.contact}`
 
 ## Description:
 ${res.description}
+
 ### Deployment Link: ${res.deploy}
 
 ### Screenshots or GIFS: ${res.screenGIF}
 
-# Table of :
-* [Installation] (##Installation)
-* [Usage] (##Usage)
-* [Contributing] (##Contributing)
-* [Test] (##Test)
-* [Profiles] (##Professional Profiles & Email)
-* [Contact for Questions] (##Contact for Questions)
+
+# Table of Contents:
+* [Installation](#Installation)
+* [Usage](#Usage)
+* [Contributing](#Contributing)
+* [Test](#Test)
+* [Profiles](#Professional-Profiles-&-Email)
+* [Contact for Questions](#Contact-for-Questions)
     
 ## Installation:
 ${res.install}
