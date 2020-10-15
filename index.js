@@ -1,5 +1,5 @@
 const fs = require('fs');
-const util = require('util');
+// const util = require('util');
 // const writeFileAsync = util.promisify(fs.writeFile);
 const inquirer = require('inquirer');
 let markDown = '';
@@ -31,7 +31,7 @@ inquirer.prompt([
         name: 'screenGIFcon'
 
     },
-    // How to link if I say yes to next screenshot input. If no, Next other question?
+    
     {
         type: 'input',
         message: 'Please paste your screenshot or GIF link:',
@@ -104,7 +104,7 @@ inquirer.prompt([
 ]).then(function(res) {
 
     if(res.screenGIFcon == false){
-        // console.log("No")
+        
         markDown = 
 `# ${res.title} 
 
@@ -183,7 +183,7 @@ For answers to any further questions please contact me via: ${res.contact}`
     }
     
     
-    // [License](https://opensource.org/licesnes/${re.license}) Do I need this?
+    // [License](https://opensource.org/licesnes/${re.license})
     fs.writeFile('README.md', markDown, function(){
         console.log('Your README is Completed!')
     })
